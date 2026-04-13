@@ -1,7 +1,7 @@
 "use client";
 import type { NextPage } from "next";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X, Mail, MapPin, ArrowRight, ChevronRight } from "lucide-react";
 
 // ── TRANSLATIONS ────────────────────────────────────────────────────────────
@@ -171,6 +171,14 @@ const T: Record<Lang, {
 const LandingPage: NextPage = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [lang, setLang] = useState<Lang>("es");
+
+  useEffect(() => {
+    const base = navigator.language.split("-")[0].toLowerCase();
+    if (base === "da") setLang("da");
+    else if (base === "es") setLang("es");
+    else setLang("en");
+  }, []);
+
   const t = T[lang];
 
   const navLinks = [
